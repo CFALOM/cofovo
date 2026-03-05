@@ -3,87 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoFoVo | Butik Tasarım & El Emeği</title>
+    <title>CoFoVo | Aile Boyu Butik Moda</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #ffffff; }
+        :root {
+            --primary-color: #ff4757; /* Canlı Mercan/Kırmızı */
+            --secondary-color: #2f3542;
+            --light-bg: #f1f2f6;
+        }
 
-        /* Üst Menü / Navbar */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: white; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: bold; letter-spacing: 4px; color: #000; text-decoration: none; }
-        .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-size: 14px; text-transform: uppercase; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fff; }
 
-        /* Ana Görsel / Banner */
-        .hero { background-color: #f8f8f8; height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 40px; }
-        .hero h2 { font-size: 40px; margin-bottom: 10px; text-transform: uppercase; }
-        .hero p { color: #666; margin-bottom: 20px; }
+        /* Üst Menü ve Arama */
+        header { background: #fff; border-bottom: 2px solid var(--light-bg); position: sticky; top: 0; z-index: 1000; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; }
+        .logo { font-size: 28px; font-weight: 900; color: var(--primary-color); text-decoration: none; letter-spacing: 2px; }
+        
+        .search-container { flex-grow: 1; margin: 0 30px; position: relative; }
+        .search-container input { width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
 
-        /* Ürün Listesi */
+        .cart-icon { position: relative; cursor: pointer; font-size: 20px; text-decoration: none; color: #000; }
+        .cart-count { position: absolute; top: -10px; right: -10px; background: var(--primary-color); color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
+
+        /* Kategori Menüsü */
+        .nav-menu { background: var(--secondary-color); display: flex; justify-content: center; padding: 10px 0; }
+        .nav-menu a { color: white; text-decoration: none; margin: 0 15px; font-size: 14px; font-weight: 500; text-transform: uppercase; }
+        .nav-menu a:hover { color: var(--primary-color); }
+
+        /* Hero Banner */
+        .banner { background: linear-gradient(45deg, #ff4757, #ff6b81); color: white; text-align: center; padding: 60px 20px; margin-bottom: 30px; }
+
+        /* Ürün Alanı */
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .section-title { margin-bottom: 30px; font-size: 22px; border-left: 5px solid #000; padding-left: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
         
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .card { border-radius: 10px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; position: relative; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 320px; object-fit: cover; background: #eee; }
         
-        /* Ürün Kartı */
-        .product-card { border: 1px solid #f1f1f1; transition: 0.3s; position: relative; cursor: pointer; }
-        .product-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .product-card img { width: 100%; height: 350px; object-fit: cover; display: block; background-color: #eee; }
-        .badge { position: absolute; top: 10px; left: 10px; background: #000; color: #fff; padding: 5px 10px; font-size: 10px; text-transform: uppercase; }
-        
-        .product-info { padding: 15px; text-align: left; }
-        .product-info h3 { font-size: 16px; margin-bottom: 8px; color: #333; }
-        .price { font-size: 18px; font-weight: bold; color: #000; }
-        .buy-btn { display: block; width: 100%; padding: 10px; background: #000; color: #fff; text-align: center; text-decoration: none; margin-top: 15px; font-size: 13px; transition: 0.3s; }
-        .buy-btn:hover { background: #333; }
+        .info { padding: 15px; }
+        .category-tag { font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase; }
+        .info h3 { font-size: 16px; margin: 5px 0; }
+        .price { font-size: 18px; font-weight: 800; color: var(--secondary-color); }
 
-        footer { background: #000; color: #fff; padding: 50px 5%; margin-top: 50px; text-align: center; }
+        .add-to-cart { width: 100%; padding: 10px; background: var(--primary-color); color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .add-to-cart:hover { background: #e84118; }
+
+        /* Alt Kısım */
+        footer { background: var(--secondary-color); color: white; padding: 40px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-<nav>
-    <a href="#" class="logo">CoFoVo</a>
-    <div class="nav-links">
-        <a href="#">Yeni Gelenler</a>
-        <a href="#">Koleksiyon</a>
-        <a href="#">Hakkımızda</a>
+<header>
+    <div class="top-bar">
+        <a href="#" class="logo">CoFoVo</a>
+        <div class="search-container">
+            <input type="text" placeholder="Gömlek, Tişört, Elbise ara...">
+        </div>
+        <a href="#" class="cart-icon">
+            🛒 Sepetim <span class="cart-count" id="cart-val">0</span>
+        </a>
     </div>
-</nav>
+    <div class="nav-menu">
+        <a href="#">Kadın</a>
+        <a href="#">Erkek</a>
+        <a href="#">Kız Çocuk</a>
+        <a href="#">Erkek Çocuk</a>
+        <a href="#">İndirim</a>
+    </div>
+</header>
 
-<div class="hero">
-    <h2>ANNE ELİ DEĞDİ</h2>
-    <p>Butik, Sınırlı Sayıda ve Tamamen El Yapımı.</p>
+<div class="banner">
+    <h1>YENİ SEZON KOLEKSİYONU</h1>
+    <p>Annenizin ustalığı, sizin tarzınız. Şimdi keşfedin.</p>
 </div>
 
 <div class="container">
-    <h2 class="section-title">Öne Çıkan Ürünler</h2>
-    
-    <div class="product-grid">
-        <div class="product-card">
-            <span class="badge">Yeni</span>
-            <img src="urun1.jpg" alt="Ürün Fotoğrafı">
-            <div class="product-info">
-                <h3>Keten Rahat Kesim Gömlek</h3>
-                <p class="price">550,00 TL</p>
-                <a href="https://www.shopier.com/SAYFA_LINKIN" class="buy-btn">SEPETE EKLE</a>
+    <div class="grid">
+        <div class="card">
+            <img src="urun1.jpg" alt="Ürün">
+            <div class="info">
+                <span class="category-tag">Erkek Gömlek</span>
+                <h3>Mavi Keten Gömlek</h3>
+                <p class="price">550 TL</p>
+                <button class="add-to-cart" onclick="updateCart()">SEPETE EKLE</button>
             </div>
         </div>
 
-        <div class="product-card">
-            <img src="urun2.jpg" alt="Ürün Fotoğrafı">
-            <div class="product-info">
-                <h3>Pamuklu El Dikimi Elbise</h3>
-                <p class="price">850,00 TL</p>
-                <a href="#" class="buy-btn">SEPETE EKLE</a>
+        <div class="card">
+            <img src="urun2.jpg" alt="Ürün">
+            <div class="info">
+                <span class="category-tag">Kadın Tişört</span>
+                <h3>Beyaz Basic Tişört</h3>
+                <p class="price">250 TL</p>
+                <button class="add-to-cart" onclick="updateCart()">SEPETE EKLE</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="urun3.jpg" alt="Ürün">
+            <div class="info">
+                <span class="category-tag">Çocuk Elbise</span>
+                <h3>Pembe Çiçekli Elbise</h3>
+                <p class="price">400 TL</p>
+                <button class="add-to-cart" onclick="updateCart()">SEPETE EKLE</button>
             </div>
         </div>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 CoFoVo | Anne ve Oğul Girişimi</p>
-    <p style="font-size: 12px; margin-top: 10px; color: #888;">Güvenli ödeme ve hızlı teslimat.</p>
+    <p>&copy; 2026 CoFoVo Boutique - Geleceğin Markası</p>
 </footer>
+
+<script>
+    let count = 0;
+    function updateCart() {
+        count++;
+        document.getElementById('cart-val').innerText = count;
+        alert("Ürün sepete eklendi!");
+    }
+</script>
 
 </body>
 </html>
